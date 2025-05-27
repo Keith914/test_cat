@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ДЛЯ РОМОЧКИ</title>
+    <link rel="stylesheet" href="style(2).css">
+ 
+</head>
+
+
+<body>
+
+    
+<a href="#start" class="button-link"><b><span><div class="blinking-text">
+<h1>УЗНАЙ, КАКОЙ ТЫ КОТИК</h1></div></span></b></a>
+
+<div class="wrap">
+<div id="start"></div>
+
+<div class="question-1"> <p><b>1. Как ты просыпаешься утром?</b></p></div>
+<div class="answers-1">
+<p>
+<label><input type="radio" name="1" value="рыжий кот"> От голода!</label><br>
+<label><input type="radio" name="1" value="сладкая булочка"> Муррр, потягушкииии...</label><br>
+<label><input type="radio" name="1" value="дворовый кот"> Бодрый и готовый ко всему, мяф!</label><br>
+</p>
+</div>
+
+<div class="question-2"> <p><b>2. Тебе постречался другой котик. Твои действия?</b></p></div>
+<div class="answers-2">
+<p>
+<label><input type="radio" name="2" value="рыжий кот"> Нашиплю на него - это моя территория!</label><br>
+<label><input type="radio" name="2" value="дворовый кот"> Мяукну в знак приветствия</label><br>
+<label><input type="radio" name="2" value="сладкая булочка"> А, может, это кошечка, м?</label><br>
+</p>
+</div>
+
+<div class="question-3"> <p><b>3. Что ты скажешь, если кто-то не любит котиков?</b></p></div>
+<div class="answers-3">
+<p>
+<label><input type="radio" name="3" value="рыжий кот"> Каждому свое, хотя это подозрительно...</label><br>
+<label><input type="radio" name="3" value="сладкая булочка"> Ты просто не пробовал их готовить, шутка, хы</label><br>
+<label><input type="radio" name="3" value="дворовый кот"> Кусь!</label><br>
+</p>
+</div>
+
+
+<div class="question-4"> <p><b>4. Как ты реагируешь на стресс?</b></p></div>
+<div class="answers-4">
+<p>
+<label><input type="radio" name="4" value="дворовый кот"> Проверю миски</label><br>
+<label><input type="radio" name="4" value="сладкая булочка"> Не будите меня</label><br>
+<label><input type="radio" name="4" value="рыжий кот"> Подумаешь, стресс...</label><br>
+</p>
+</div>
+
+
+<div class="question-5"> <p><b>5. Твой идеальный вечер?</b></p></div>
+<div class="answers-5">
+<p>
+<label><input type="radio" name="5" value="сладкая булочка"> На подушечке под одеялком...</label><br>
+<label><input type="radio" name="5" value="дворовый кот"> Вечер просто создан для тыгыдыков!</label><br>
+<label><input type="radio" name="5" value="рыжий кот"> Есть до упаду ееее</label><br>
+</p>
+</div>
+
+<input type="image" src="Screenshot_2.png" width="200" height="100" onclick="showResult()">
+<div id="result" style="display:none; text-align: left;">
+<p id="resultText"></p>
+<img id="catImage" src="" alt="Результат" style="max-width: 200px; margin-bottom: 100px;">
+
+<button class="retry-button" onclick="resetQuiz()">Попробовать ещё ^.^ раз</button>
+
+
+</div>
+
+</div>
+
+
+
+<script>
+function showResult() {
+  // 1. Собираем все отмеченные ответы по имени группы (вопросы с name="1", "2", ..., "5")
+  const answers = [
+    document.querySelector('input[name="1"]:checked'),
+    document.querySelector('input[name="2"]:checked'),
+    document.querySelector('input[name="3"]:checked'),
+    document.querySelector('input[name="4"]:checked'),
+    document.querySelector('input[name="5"]:checked')
+  ];
+
+  // 1. Проверка: все ли вопросы отвечены?
+if (answers.includes(null)) {
+  showAlert();
+  return;
+}
+
+  // 2. Считаем количество ответов за каждый тип кота
+  const counts = {
+    "рыжий кот": 0,
+    "сладкая булочка": 0,
+    "дворовый кот": 0
+  };
+
+  answers.forEach(answer => {
+    if (answer) {
+      counts[answer.value]++;
+    }
+  });
+
+  // 3. Определяем победителя — у кого больше всего голосов
+  let best = "рыжий кот"; // по умолчанию, если всё по нулям
+  let max = counts[best];
+
+  for (let type in counts) {
+    if (counts[type] > max) {
+      best = type;
+      max = counts[type];
+    }
+  }
+
+  // 4. Выводим результат — текст и соответствующее изображение
+  const resultText = document.getElementById('resultText');
+  const catImage = document.getElementById('catImage');
+
+  if (best === "рыжий кот") {
+  resultText.innerText = "Ты - рыжий кот. Энергичный и бесстрашный! Мрррр";
+  catImage.src = "images_redcat.jpg?time=" + new Date().getTime();
+} else if (best === "сладкая булочка") {
+  resultText.innerText = "Ты - сладкая булочка... чмок тя!";
+  catImage.src = "2025-05-22_20-49-01.png?time=" + new Date().getTime();
+} else if (best === "дворовый кот") {
+  resultText.innerText = "Ты - дворовый кот - настоящий боец! Мяф!";
+  catImage.src = "2025-05-22_20-50-49.png?time=" + new Date().getTime();
+}
+
+  // 5. Показываем блок с результатом и плавно прокручиваем к нему
+  const resultDiv = document.getElementById('result');
+  resultDiv.style.display = 'block';
+  resultDiv.scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+
+<script>
+function resetQuiz() {
+  // Снимаем все выбранные ответы
+  const checkedRadios = document.querySelectorAll('input[type="radio"]:checked');
+  checkedRadios.forEach(r => r.checked = false);
+
+  // Прячем блок с результатом
+  const resultDiv = document.getElementById('result');
+  resultDiv.style.display = 'none';
+
+  // Очищаем текст и картинку
+  document.getElementById('resultText').innerText = '';
+  document.getElementById('catImage').src = '';
+
+  // Прокручиваем наверх
+  document.getElementById('start').scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+
+<script>
+  function showAlert() {
+    document.getElementById('customAlert').style.display = 'block';
+  }
+
+  function hideAlert() {
+    document.getElementById('customAlert').style.display = 'none';
+  }
+</script>
+<!-- Кастомное модальное сообщение -->
+<div id="customAlert">
+<p>Пожалуйста, ответь на все вопросы перед тем, как узнать результат!</p>
+<button onclick="hideAlert()" style="margin-top: 15px; padding: 8px 16px; background-color: #ffd100; border: none;
+    border-radius: 10px; font-weight: bold; cursor: pointer;">ОК</button>
+</div>
+</body>
+</html>
