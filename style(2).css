@@ -123,8 +123,8 @@ body::before {
   top: 25%;
   left: 50%;
   transform: translateX(-50%);
-  background: #d6eff0/* rgba(0, 0, 0, 0.8) */; /* Тёмный с прозрачностью */
-  color: black;
+  background: #d6eff0; /* rgba(0, 0, 0, 0.8) */ /* Тёмный фон с прозрачностью */
+  color: #333;;
   padding: 25px;
   border-radius: 15px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
